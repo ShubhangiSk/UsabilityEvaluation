@@ -1,3 +1,6 @@
+""" This is the part of the code which does the initial log collection phase through image processing. 
+The input will be the screenshot of the UI captured after each click and the output will be the text read from the screenshot"""
+
 import cv2
 import numpy as np
 import pytesseract
@@ -5,6 +8,9 @@ from PIL import Image
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"
 # Path of working folder on Disk
 src_path = "C:/Users/Shubhangi/Desktop/FINAL_YEAR_PROJECT/UsabilityEvaluation/"
+
+"""Gets all the text present in an image. 
+The input image is the screenshot of the UI captured after a click event. """
 
 def get_all_text(img_path):
     # Read image with opencv
@@ -31,10 +37,11 @@ def get_all_text(img_path):
     # Recognize text with tesseract for python
     result = pytesseract.image_to_string(Image.open(src_path + "thres.png"))
 
-    # Remove template file
-    #os.remove(temp)
-
     return result
+
+
+""" The purpose of this function is to recognize the text in the sections that are highlighted and hence in a blue background.
+This helps us obtain the current user location in the application."""
 
 def get_blue_part(img_path):
     # Read image with opencv
@@ -63,9 +70,6 @@ def get_blue_part(img_path):
 
     # Recognize text with tesseract for python
     result = pytesseract.image_to_string(Image.open(src_path + "thres.png"))
-
-    # Remove template file
-    #os.remove(temp)
 
     return result
 
